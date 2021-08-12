@@ -1,0 +1,28 @@
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "ha@gmail.com",
+    "password": "bre"
+}
+
+### find a user with id 
+GET http://localhost:3000/auth/121
+
+
+### find all users with emial 
+GET http://localhost:3000/auth?email=yaro@gmail.com
+
+
+### delete a user with id 
+DELETE  http://localhost:3000/auth/121
+
+### update user
+
+PATCH http://localhost:3000/auth/121
+Content-Type: application/json
+
+{
+    "password": "noHash"
+}
+
