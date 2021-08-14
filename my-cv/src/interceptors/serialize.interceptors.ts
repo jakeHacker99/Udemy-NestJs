@@ -1,4 +1,3 @@
-import { UserDto } from './../users/dtos/user.dto';
 import {
     UseInterceptors,
     NestInterceptor,
