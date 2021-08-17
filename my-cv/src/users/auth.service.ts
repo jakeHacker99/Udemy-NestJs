@@ -1,55 +1,56 @@
-import { UsersService } from './users.service';
 import {
-    BadRequestException,
-    Injectable,
-    NotFoundException,
+  Injectable,
+  BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
+import { UsersService } from './users.service';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
 
 const scrypt = promisify(_scrypt);
+
 @Injectable()
 export class AuthService {
-    constructor(private userService: UsersService) { }
-    signup = async (email: string, password: string) => {
-        // see if email is in use
-        const users = await this.userService.find(email);
-        if (users.length) {
-            throw new BadRequestException('email in use');
-        }
+  constructor(private usersService: UsersService) {}
 
-        // hash the password
+  async signup(email: string, password: string) {
+    // See if email is in use
+    const users = await this.usersService.find(email);
+    if (users.length) {
+      throw new BadRequestException('email in use');
+    }
 
-        // generate salt
-        const salt = randomBytes(8).toString('hex');
+    // Hash the users password
+    // Generate a salt
+    const salt = randomBytes(8).toString('hex');
 
-        // hash salt & pass
-        const hash = (await scrypt(password, salt, 32)) as Buffer;
+    // Hash the salt and the password together
+    const hash = (await scrypt(password, salt, 32)) as Buffer;
 
-        //   join hash + salt
-        const result = salt + '.' + hash.toString('hex');
+    // Join the hashed result and the salt together
+    const result = salt + '.' + hash.toString('hex');
 
-        // create a new user and save it
+    // Create a new user and save it
+    const user = await this.usersService.create(email, result);
 
-        const user = await this.userService.create(email, result);
+    // return the user
+    return user;
+  }
 
-        // return the user
-        return user;
-    };
-    signin = async (email: string, password: string) => {
-        const [user] = await this.userService.find(email);
-        if (!user) {
-            throw new NotFoundException('user not found 🕗');
-        }
+  async signin(email: string, password: string) {
+    const [user] = await this.usersService.find(email);
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
 
-        const [salt, storedHash] = user.password.split('.');
-        const hash = (await scrypt(password, salt, 32)) as Buffer
+    const [salt, storedHash] = user.password.split('.');
 
-        if (storedHash !== hash.toString("hex")) {
-            throw new BadRequestException("wrong password");
-        }
-        return user;
+    const hash = (await scrypt(password, salt, 32)) as Buffer;
 
+    if (storedHash !== hash.toString('hex')) {
+      throw new BadRequestException('bad password');
+    }
 
-    };
+    return user;
+  }
 }

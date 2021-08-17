@@ -8,28 +8,17 @@ describe('AppController (e2e)', () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
   });
 
-  it('hadnles a signup request', () => {
-    const email = "tja22@hotmail.com";
+  it('/ (GET)', () => {
     return request(app.getHttpServer())
-
-      .post("auth/singup")
-      .send({
-        email,
-        password: "121212"
-      })
-      .expect(201)
-      .then((res) => {
-        const { id, email } = res.body
-        expect(id).toBeDefined()
-
-        expect(email).toBeDefined()
-      })
+      .get('/')
+      .expect(200)
+      .expect('Hello World!');
   });
 });
