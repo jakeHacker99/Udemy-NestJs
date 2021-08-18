@@ -1,0 +1,48 @@
+POST http://localhost:3000/reports
+Content-Type: application/json
+
+{
+    "make":"audi",
+    "model": "rs7",
+    "year": 2005,
+    "mileage": 1000,
+    "lng": 0,
+    "lat": 0,
+    "price": 10000
+    
+}
+
+### singup user
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "test12@gmail.com",
+    "password": "test12"
+
+}
+
+### signin
+
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "test12@gmail.com",
+    "password": "test12"
+
+}
+
+### signout
+
+POST http://localhost:3000/auth/signout
+
+
+
+
+
+
+
+
+
+
