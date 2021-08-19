@@ -1,14 +1,14 @@
-POST http://localhost:3000/reports
+POST  http://localhost:3000/reports
 Content-Type: application/json
 
 {
     "make":"audi",
-    "model": "rs7",
-    "year": 2005,
-    "mileage": 1000,
-    "lng": 0,
-    "lat": 0,
-    "price": 10000
+    "model": "rs6",
+    "year": 2021,
+    "mileage": 2300,
+    "lng": 45,
+    "lat": 40,
+    "price": 30
     
 }
 
@@ -17,8 +17,8 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "test12@gmail.com",
-    "password": "test12"
+    "email": "124@msn.se",
+    "password": "12"
 
 }
 
@@ -28,8 +28,8 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "test12@gmail.com",
-    "password": "test12"
+    "email": "124@msn.se",
+    "password": "12"
 
 }
 
@@ -40,7 +40,7 @@ POST http://localhost:3000/auth/signout
 
 
 ###get na estimted for vechilce
-GET  http://localhost:3000/reports?make="toyot&model="corolla"&lng=0&lat=0&mileage=10&year=2021
+GET  http://localhost:3000/reports?make=audi&model=rs6&lng=45&lat=45&mileage=10&year=2021
 
 
 
