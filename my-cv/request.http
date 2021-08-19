@@ -39,9 +39,8 @@ POST http://localhost:3000/auth/signout
 
 
 
-
-
-
+###get na estimted for vechilce
+GET  http://localhost:3000/reports?make="toyot&model="corolla"&lng=0&lat=0&mileage=10&year=2021
 
 
 
